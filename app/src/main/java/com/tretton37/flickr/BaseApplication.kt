@@ -24,11 +24,6 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-//        parameters["format"] = "json"
-//        parameters["method"] = "flickr.photos.search"
-//        parameters["api_key"] = APIKey
-//        parameters["extras"] = "description,tags,owner_name,date_taken,url_sq,url_n,url_z,url_c,url_l,url_o"
-
         val retrofitBuilder = provideRetrofitBuilder(okHttpClient, gson)
         restApi = createRestAdapter(retrofitBuilder)
     }
@@ -61,6 +56,5 @@ class BaseApplication : Application() {
 
     companion object {
         const val Key: String = "8d1fb3b3614a0f4873db568a9c3a2106"
-        const val Secret: String = "11c7f1af91a3ef91"
     }
 }

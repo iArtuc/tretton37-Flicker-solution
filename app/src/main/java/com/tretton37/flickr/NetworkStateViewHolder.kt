@@ -20,5 +20,4 @@ class NetworkStateViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             return NetworkStateViewHolder(view)
         }
     }
-
 }
