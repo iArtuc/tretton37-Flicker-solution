@@ -1,19 +1,13 @@
 package com.tretton37.flickr
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
 import com.tretton37.flickr.model.PhotoItem
-import com.tretton37.flickr.model.PhotosResponse
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseAppCompatActivity() {
 
     companion object {
         const val LOG_TAG = "MainActivity"
@@ -31,12 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         createRecyclerView()
         loadNextPage()
         addRecyclerPositionListener()
+    }
 
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
     }
 
 
@@ -63,37 +59,33 @@ class MainActivity : AppCompatActivity() {
                     isRecyclerLoading = value
                     if (value) {
                         photosAdapter.setNetworkState(NetworkState.LOADING)
-                    } else {
+                    }
+                    else {
                         photosAdapter.setNetworkState(NetworkState.LOADED)
                     }
                 }
-
 
             override fun loadMoreItems() {
                 isLoading = true
                 currentPage += 1
                 loadNextPage()
             }
-
         })
-
     }
 
     private fun loadNextPage() {
-        (application as BaseApplication).restApi.getPictures(currentPage).enqueue(object : Callback<PhotosResponse> {
-            override fun onFailure(call: Call<PhotosResponse>?, t: Throwable?) {
-
-            }
-
-            override fun onResponse(call: Call<PhotosResponse>?, response: Response<PhotosResponse>?) {
-                val apiPhotos = response?.body()?.photos?.photo ?: emptyList()
-                photos.addAll(apiPhotos)
-                photosAdapter.notifyDataSetChanged()
-                isRecyclerLoading = false
-                photosAdapter.setNetworkState(NetworkState.LOADED)
-            }
-        })
-
+        subscriptions.add((application as BaseApplication).restApi.getPictures(currentPage)
+                                  .applyIOSchedulers()
+                                  .subscribe({ result ->
+                                                 photos.addAll(result.photos.photo)
+                                                 photosAdapter.notifyDataSetChanged()
+                                                 isRecyclerLoading = false
+                                                 photosAdapter.setNetworkState(NetworkState.LOADED)
+                                             },
+                                             { error ->
+                                                 Log.e("GetPictureError", error.message)
+                                             })
+                         )
     }
 
 }

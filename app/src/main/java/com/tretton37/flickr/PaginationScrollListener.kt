@@ -1,7 +1,7 @@
 package com.tretton37.flickr
 
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 
 
 abstract class PaginationScrollListener(internal var layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {

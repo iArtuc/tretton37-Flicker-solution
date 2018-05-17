@@ -1,7 +1,7 @@
 package com.tretton37.flickr
 
 import com.tretton37.flickr.model.PhotosResponse
-import retrofit2.Call
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,5 +16,7 @@ interface RestApi {
                     @Query("per_page") perPage: String = "10",
                     @Query("media") media: String = "photos",
                     @Query("nojsoncallback") jsonCallBack: String = "1",
-                    @Query("extras") extras: String = "description,tags,owner_name,date_taken,url_sq,url_n,url_z,url_c,url_l,url_o"): Call<PhotosResponse>
+                    @Query("extras") extras: String = "description,tags,owner_name,date_taken," +
+                                                      "url_sq,url_n,url_z,url_c,url_l,url_o"):
+            Single<PhotosResponse>
 }

@@ -4,14 +4,15 @@
  **/
 ext.deps = [:]
 def versions = [:]
+versions.navigation = "1.0.0-alpha01"
 versions.firebase = "11.8.0"
 versions.firebase_ui_database = "3.2.1"
 versions.play_service = "11.8.0"
-versions.arch_core = "1.1.0"
-versions.room = "1.1.0-alpha1"
-versions.lifecycle = "1.1.0"
-versions.support = "27.1.1"
-versions.dagger = "2.11"
+versions.arch_core = "1.1.1"
+versions.room = "1.1.0"
+versions.lifecycle = "1.1.1"
+versions.support = "28.0.0-alpha1"
+versions.dagger = "2.15"
 versions.junit = "4.12"
 versions.espresso = "3.0.1"
 versions.retrofit = "2.3.0"
@@ -24,8 +25,8 @@ versions.dexmaker = "2.2.0"
 versions.constraint_layout = "1.0.2"
 versions.glide = "3.8.0"
 versions.timber = "4.5.1"
-versions.android_gradle_plugin = "3.2.0-alpha11"
-versions.rxjava2 = "2.1.3"
+versions.android_gradle_plugin = "3.2.0-alpha14"
+versions.rxjava2 = "2.1.12"
 versions.rxkotlin = "2.1.0"
 versions.rx_android = "2.0.1"
 versions.rx_binding = "2.0.0"
@@ -126,7 +127,20 @@ fabric.plugin = "io.fabric.tools:gradle:1.+"
 deps.fabric = fabric
 
 
+def navigation = [:]
+navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navigation"
+navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.ui = "android.arch.navigation:navigation-ui:$versions.navigation"
+navigation.ui_ktx = "android.arch.navigation:navigation-ui-ktx:$versions.navigation"
+navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
+navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+navigation.testing_ktx = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
+deps.navigation = navigation
+
+
 deps.kotlin = kotlin
+deps.core = "androidx.core:core-ktx:0.3"
 deps.paging = "android.arch.paging:runtime:$versions.paging"
 deps.glide = "com.github.bumptech.glide:glide:$versions.glide"
 deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
@@ -142,7 +156,7 @@ deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.hockey_app = "net.hockeyapp.android:HockeySDK:$versions.hockey_app"
 deps.javax_annotation_jsr250 = "javax.annotation:jsr250-api:1.0"
-deps.threetenabp = "com.jakewharton.threetenabp:threetenabp:1.0.5"
+deps.threetenabp = "com.jakewharton.threetenabp:threetenabp:1.1.0"
 deps.multitype = "me.drakeet.multitype:multitype-kotlin:3.4.4"
 ext.deps = deps
 
@@ -151,6 +165,7 @@ build_versions.min_sdk = 21
 build_versions.target_sdk = 27
 build_versions.build_tools = "27.0.3"
 build_versions.sdk_tools = 3859397
+build_versions.compileSdkVersion = 27
 ext.build_versions = build_versions
 
 

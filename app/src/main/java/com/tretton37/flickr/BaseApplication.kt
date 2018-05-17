@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -24,7 +25,9 @@ class BaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val retrofitBuilder = provideRetrofitBuilder(okHttpClient, gson)
+        val retrofitBuilder = provideRetrofitBuilder(okHttpClient,
+                                                     gson,
+                                                     RxJava2CallAdapterFactory.create())
         restApi = createRestAdapter(retrofitBuilder)
     }
 
@@ -48,9 +51,11 @@ class BaseApplication : Application() {
 
 
     private fun provideRetrofitBuilder(okHttpClient: OkHttpClient,
-                                       gson: Gson): Retrofit.Builder {
+                                       gson: Gson,
+                                       rxJavaCallAdapterFactory: RxJava2CallAdapterFactory): Retrofit.Builder {
         return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(rxJavaCallAdapterFactory)
                 .client(okHttpClient)
     }
 

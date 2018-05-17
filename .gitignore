@@ -1,0 +1,22 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.gradle/
+.idea/
+Tretton_Flickr.iml
+app/.gitignore
+app/app.iml
+app/libs/
+build/
+gradle/
+gradlew
+gradlew.bat
+solution.iml
+gradle.properties
+local.properties
