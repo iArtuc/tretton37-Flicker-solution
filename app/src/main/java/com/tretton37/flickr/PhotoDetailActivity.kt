@@ -15,7 +15,8 @@ class PhotoDetailActivity : AppCompatActivity() {
     companion object {
         const val PHOTO_ITEM = "PHOTO_ITEM"
 
-        fun newIntent(context: Context, photoItem: PhotoItem): Intent {
+        fun newIntent(context: Context,
+                      photoItem: PhotoItem): Intent {
             val intent = Intent(context, PhotoDetailActivity::class.java)
             intent.putExtra(PHOTO_ITEM, photoItem)
             return intent
